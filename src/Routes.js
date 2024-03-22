@@ -44,10 +44,10 @@ const Home = () => {
   </Container>
 
 }
-const Bananas = () => {
+const Bananas = (props) => {
   return <Col>
     <img src={bananas} style={{ height: '50%', margin: 'auto' }}></img> {/* Set image height to 30% and use margin auto for centering */} {/* Set image height to 30% and use margin auto for centering */}
-    <h2 className="warning">{"You Won Bananas"}
+    <h2 className="warning">{`You won ${props.b}Bananas`}
     </h2>
     <Button className='danger' style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Play Again</Link></Button> {/* Position button absolutely */}
   </Col>
@@ -57,7 +57,7 @@ const Bananas = () => {
 
 
 const GamePage = () => {
-  const [elapsedTime, setElapsedTime] = useState(100);
+  const [elapsedTime, setElapsedTime] = useState(50);
   const [arr, setArr] = useState([1, 2, 3, 4, 5, 6]);
   const numbers = [1, 2, 3, 4, 5, 6]
   const [shuffledNumbers, setShuffledNumbers] = useState(numbers.sort(() => Math.random() - 0.5));
@@ -69,6 +69,7 @@ const GamePage = () => {
   const [isLeftOpen, setIsLeftOpen] = useState(false)
   const [currLeft, setCurrLeft] = useState(null);
   const [win, setWin] = useState(false)
+  const [wonBananas, setWonBananas] = useState(50);
   const fruitNoMapping = {
     1: apple,
     2: mango,
@@ -77,20 +78,21 @@ const GamePage = () => {
     5: pineapple,
     6: orange
   }
+  let interval;
 
   useEffect(() => {
-    // const interval = setInterval(() => {
-    //   setElapsedTime(prevValue => {
-    //     if (prevValue > 0) {
-    //       return prevValue - 1;
-    //     } else {
-    //       clearInterval(interval);
-    //       return 0;
-    //     }
-    //   });
-    // }, 1000); // Update every second
+    interval = setInterval(() => {
+      setElapsedTime(prevValue => {
+        if (prevValue > 0) {
+          return prevValue - 1;
+        } else {
+          clearInterval(interval);
+          return 0;
+        }
+      });
+    }, 1000); // Update every second
 
-    // return () => clearInterval(interval); // Cleanup the interval on unmount
+    return () => clearInterval(interval); // Cleanup the interval on unmount
   }, []);
 
   const handleRightClick = (number, index) => {
@@ -115,7 +117,9 @@ const GamePage = () => {
         })
 
         if (win == 1) {
+          const currT = elapsedTime
           setWin(true)
+          setWonBananas(currT)
         }
 
       } else {
@@ -149,12 +153,12 @@ const GamePage = () => {
     <Row>
       <Col className="mt-4 mb-4">
         <Progress
-          value={elapsedTime}
+          value={elapsedTime * 2}
         />
       </Col>
     </Row>
     {win && <Row>
-      {<Bananas />}
+      {<Bananas b={wonBananas} />}
     </Row>}
     <Row xs="2" >
       <Col >
@@ -222,7 +226,8 @@ const GamePage = () => {
                   }}
                   color="warning"
                   onClick={() => {
-                    handleRightClick(e, i);
+                    if (isLeftOpen)
+                      handleRightClick(e, i);
                   }}
                 >
 

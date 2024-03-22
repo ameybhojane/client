@@ -161,7 +161,7 @@ const GamePage = () => {
         <Row xs="3" >
 
           {arr.map((e, i) => (
-            !showCard[e - 1] ? <Col key={i}>< ></> </Col> :
+            !showCard[e - 1] ? <Col key={i}><div></div> </Col> :
               <Col key={i}> {/* Ensure each child has a unique key */}
                 {showLeftCard[i] && currLeft == e ? (
                   <Card
@@ -201,7 +201,7 @@ const GamePage = () => {
         <Row xs="3">
 
           {shuffledNumbers.map((e, i) =>
-            !showCard[e - 1] ? <Col key={i}><></> </Col> :
+            !showCard[e - 1] ? <Col key={i}><div></div> </Col> :
               <Col key={i}>
                 {showRightCard[i] && isLeftOpen ? (<Card
                   style={{

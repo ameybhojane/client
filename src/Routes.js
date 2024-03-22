@@ -12,7 +12,7 @@ import watermelon from './images/fruit-melancia-watermelon-svgrepo-com.svg'
 import orange from './images/orange-svgrepo-com.svg'
 import pineapple from './images/pineapple-svgrepo-com.svg'
 import mango from './images/mango-svgrepo-com.svg'
-import bananas from './images/1280px-Bananas.svg'
+import bananas from './images/bananas-banana-svgrepo-com.svg'
 
 export default function Routes() {
   return (
@@ -47,8 +47,8 @@ const Home = () => {
 const Bananas = () => {
   return <Col>
     <img src={bananas} style={{ height: '50%', margin: 'auto' }}></img> {/* Set image height to 30% and use margin auto for centering */} {/* Set image height to 30% and use margin auto for centering */}
-    <h3>{"You Won BANANAS"}
-    </h3>
+    <h2 className="warning">{"You Won Bananas"}
+    </h2>
     <Button className='danger' style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Play Again</Link></Button> {/* Position button absolutely */}
   </Col>
 
@@ -172,6 +172,8 @@ const GamePage = () => {
                       flexDirection: "column",
                       justifyContent: "space-between",
                       textAlign: 'center',
+                      opacity: "0.7",
+
                     }}
 
                   >
@@ -179,7 +181,7 @@ const GamePage = () => {
                   </Card>
                 ) : (
                   <Card
-                    style={{ width: "120px", height: "200px" }}
+                    style={{ width: "120px", height: "200px", opacity: "0.5" }}
                     onClick={() => {
                       setShowLeftCard(prevState => {
                         const newState = [...prevState]; // Create a copy of prevState
@@ -208,14 +210,15 @@ const GamePage = () => {
                     width: "120px", height: "200px", display: "flex",
                     flexDirection: "column", // Set flex direction to column
                     justifyContent: "space-between", // Align items vertically and distribute space between them
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    opacity: "0.7",
                   }}>
                   <img src={fruitNoMapping[e]}></img>
 
 
                 </Card>) : (<Card
                   style={{
-                    width: "120px", height: "200px", display: "flex",
+                    width: "120px", height: "200px", display: "flex", opacity: "0.7"
                   }}
                   color="warning"
                   onClick={() => {

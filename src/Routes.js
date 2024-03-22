@@ -13,11 +13,14 @@ import orange from './images/orange-svgrepo-com.svg'
 import pineapple from './images/pineapple-svgrepo-com.svg'
 import mango from './images/mango-svgrepo-com.svg'
 import bananas from './images/bananas-banana-svgrepo-com.svg'
+import welcomeKiddo from './images/welcome_kiddo.webp'
+import mizzo from './images/mizzo.webp'
 
 export default function Routes() {
   return (
     <BaseRoutes>
       <Route path="/" element={<Home />} />
+      <Route path="/intro" element={<Intro />} />
       <Route path="gamePage" element={<GamePage />}>
       </Route>
     </BaseRoutes>
@@ -39,17 +42,39 @@ const Home = () => {
   }}
     className="pl-0 pr-0"
   >
-    <img src={Monkey} style={{ height: '50%', margin: 'auto' }}></img> {/* Set image height to 30% and use margin auto for centering */}
-    <Button className='danger' style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/gamePage" style={{ textDecoration: 'none', color: 'inherit' }}>Next</Link></Button> {/* Position button absolutely */}
+    <img src={Monkey} style={{ height: '50%', margin: 'auto' }}></img>
+    <img src={welcomeKiddo} style={{ position: 'absolute', height: '50%', margin: 'auto', left: '150px' }}></img>
+    <Button color='warning' size="lg" style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/intro" style={{ textDecoration: 'none', color: 'inherit' }}>{"  Start  "}</Link></Button> {/* Position button absolutely */}
+  </Container>
+
+}
+const Intro = () => {
+  return <Container style={{
+    backgroundImage: `url(${backImage})`,
+    backgroundSize: `100vw 100vh`,
+    height: `100vh`,
+    display: "flex",
+    flexDirection: "column", // Set flex direction to column
+    justifyContent: "space-between", // Align items vertically and distribute space between them
+    textAlign: 'center',
+    position: 'relative', // Make the container position relative to position the button
+    paddingLeft: '0', // Remove left padding
+    paddingRight: '0', // Remove right padding
+  }}
+    className="pl-0 pr-0"
+  >
+    <img src={Monkey} style={{ height: '50%', margin: 'auto' }}></img>
+    <img src={mizzo} style={{ position: 'absolute', height: '80%', margin: 'auto', bottom: '220px' }}></img>
+    <Button color='warning' size="lg" style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/gamePage" style={{ textDecoration: 'none', color: 'inherit' }}>{"  Yes  "}</Link></Button> {/* Position button absolutely */}
   </Container>
 
 }
 const Bananas = (props) => {
   return <Col>
     <img src={bananas} style={{ height: '50%', margin: 'auto' }}></img> {/* Set image height to 30% and use margin auto for centering */} {/* Set image height to 30% and use margin auto for centering */}
-    <h2 className="warning">{`You won ${props.b}Bananas`}
+    <h2 className="warning">{`You won ${props.b} Bananas`}
     </h2>
-    <Button className='danger' style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Play Again</Link></Button> {/* Position button absolutely */}
+    <Button color='danger' size="lg" style={{ position: 'absolute', bottom: '20px', right: '20px' }}><Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Play Again</Link></Button> {/* Position button absolutely */}
   </Col>
 
 }
@@ -151,9 +176,10 @@ const GamePage = () => {
     paddingRight: '0', // Remove right padding
   }}>
     <Row>
-      <Col className="mt-4 mb-4">
+      <Col className="mt-4 mb-0">
         <Progress
           value={elapsedTime * 2}
+          color="warning"
         />
       </Col>
     </Row>
@@ -195,7 +221,7 @@ const GamePage = () => {
                       setIsLeftOpen(true);
                       setCurrLeft(e);
                     }}
-                    color="info"
+                    color="danger"
                   ></Card>
                 )}
               </Col>
@@ -224,7 +250,7 @@ const GamePage = () => {
                   style={{
                     width: "120px", height: "200px", display: "flex", opacity: "0.7"
                   }}
-                  color="warning"
+                  color="info"
                   onClick={() => {
                     if (isLeftOpen)
                       handleRightClick(e, i);
